@@ -63,18 +63,18 @@ Shader "Shaders/PhongReflection"
                     float3 reflectDirection = reflect(-lightDirection, normalDirection);
 
                     //Ambient light
-                    float3 ambientLighting = _Ka.rgb * UNITY_LIGHTMODEL_AMBIENT.rgb * _Color.rgb;
+                    float3 ambientLighting = _Ka.rgb /** UNITY_LIGHTMODEL_AMBIENT.rgb * _Color.rgb*/;
                     //Diffuse light
-                    float3 diffuseReflection = _Kd.rgb * _LightColor0.rgb * _Color.rgb * max(0.0, dot(normalDirection, lightDirection));
+                    float3 diffuseReflection = _Kd.rgb /** _LightColor0.rgb * _Color.rgb*/ * max(0.0, dot(normalDirection, lightDirection));
                     //Specular light
                     float3 specularReflection;
                     if (dot(normalDirection, lightDirection) < 0.0) {
                         specularReflection = float3(0, 0, 0);
                     }
                     else {
-                        specularReflection = _Ks.rgb * _LightColor0.rgb * _SpecColor.rgb * pow(max(0.0, dot(reflectDirection, viewDirection)), _Shininess);
+                        specularReflection = _Ks.rgb /** _LightColor0.rgb * _SpecColor.rgb*/ * pow(max(0.0, dot(reflectDirection, viewDirection)), _Shininess);
                     }
-                    float3 color = (ambientLighting + diffuseReflection) * tex2D(_Tex, i.uv) + specularReflection;
+                    float3 color = ((ambientLighting + diffuseReflection) * tex2D(_Tex, i.uv) + specularReflection);
                     return float4(color, 1.0);
                 }
 
@@ -127,16 +127,16 @@ Shader "Shaders/PhongReflection"
                     float3 reflectDirection = reflect(-lightDirection, normalDirection);
 
                     //Ambient light
-                    float3 ambientLighting = _Ka.rgb * UNITY_LIGHTMODEL_AMBIENT.rgb * _Color.rgb;
+                    float3 ambientLighting = _Ka.rgb /** UNITY_LIGHTMODEL_AMBIENT.rgb * _Color.rgb*/;
                     //Diffuse light
-                    float3 diffuseReflection = _Kd.rgb * _LightColor0.rgb * _Color.rgb * max(0.0, dot(normalDirection, lightDirection));
+                    float3 diffuseReflection = _Kd.rgb /** _LightColor0.rgb * _Color.rgb*/ * max(0.0, dot(normalDirection, lightDirection));
                     //Specular light
                     float3 specularReflection;
                     if (dot(normalDirection, lightDirection) < 0.0) {
                         specularReflection = float3(0, 0, 0);
                     }
                     else {
-                        specularReflection = _Ks.rgb * _LightColor0.rgb * _SpecColor.rgb * pow(max(0.0, dot(reflectDirection, viewDirection)), _Shininess);
+                        specularReflection = _Ks.rgb /** _LightColor0.rgb * _SpecColor.rgb*/ * pow(max(0.0, dot(reflectDirection, viewDirection)), _Shininess);
                     }
                     float3 color = (ambientLighting + diffuseReflection) * tex2D(_Tex, i.uv) + specularReflection;
                     return float4(color, 1.0);
